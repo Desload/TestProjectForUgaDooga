@@ -8,5 +8,5 @@ public class CellInfo : MonoBehaviour
 
     public bool isEmpty = true;
 
-    public RectTransform CellTransform = RectTransform;
+    public RectTransform CellTransform => rectTransform;
 }

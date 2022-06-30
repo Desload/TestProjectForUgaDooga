@@ -8,27 +8,28 @@ public class LettersGenerator : MonoBehaviour
 {
     [SerializeField] private int maxCountOnSide;
 
-    [SerializeField] private LatterInfo prefabLetter;
+    [SerializeField] private LetterController prefabLetter;
     [SerializeField] private CellInfo cellPrefab;
-    
-    private List<CellInfo> points;
-    private List<RectTransform> lattersTransforms;
 
     private RectTransform lettersParent;
     private GridLayout gridLayout;
     private InputReader inputReader;
+    private LettersHolder lettersHolder;
 
-    private char[] letters = Enumerable.Range('A', 'Z' - 'A' + 1).Select(c => (char)c).ToArray();
+    private char[] alphabet = Enumerable.Range('A', 'Z' - 'A' + 1).Select(c => (char)c).ToArray();
 
     private void Awake()
     {
         lettersParent = GetComponent<RectTransform>();
         inputReader = GetComponent<InputReader>();
         gridLayout = GetComponent<GridLayout>();
+        lettersHolder = GetComponent<LettersHolder>();
     }
 
     public void GenerateCombination()
     {
+        lettersHolder.ClearAll();
+
         float xSize;
         float ySize;
 
@@ -68,18 +69,26 @@ public class LettersGenerator : MonoBehaviour
             {
                 CellInfo tempCell = Instantiate(cellPrefab, transform);
                 tempCell.CellTransform.localPosition = topLeftPoint + new Vector2(endValueForLatters * w, -endValueForLatters * h);
-                points.Add(tempCell);
+                lettersHolder.Cells.Add(tempCell);
             }
         }
 
         for (int count = 0; count < widthCount * heightCount; count++)
         {
-            LatterInfo tempLatter;
+            LetterController tempLatter;
             tempLatter = Instantiate(prefabLetter, transform);
-            tempLatter.SetLetter(letters[Random.Range(0, letters.Length)].ToString());
-            //tempLatter.LatterTransform.localPosition = 
+            tempLatter.SetLetter(alphabet[Random.Range(0, alphabet.Length)].ToString());
+            LatterPositionSetter(tempLatter);
+            tempLatter.LetterTransform.sizeDelta = new Vector2(endValueForLatters, endValueForLatters);
+            lettersHolder.Letters.Add(tempLatter);
         }
+    }
 
-        print($"{widthCount} + {heightCount}");
+    private void LatterPositionSetter(LetterController latterController)
+    {
+        List<CellInfo> tempCellList = lettersHolder.Cells.Where(x => x.isEmpty).ToList();
+        int tempRandomID = Random.Range(0, tempCellList.Count);
+        latterController.LetterTransform.localPosition = tempCellList[tempRandomID].CellTransform.localPosition;
+        tempCellList[tempRandomID].isEmpty = false;
     }
 }

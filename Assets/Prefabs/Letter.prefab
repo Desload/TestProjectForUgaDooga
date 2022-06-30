@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3692909210878969956}
   - component: {fileID: 1689981942967251466}
   - component: {fileID: 5105937402686810388}
+  - component: {fileID: 7149000308826806238}
   m_Layer: 5
   m_Name: Letter
   m_TagString: Untagged
@@ -93,7 +94,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -135,3 +136,17 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7149000308826806238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7727981182271981141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7656cb8125ec25247ab8fff6db5a990b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  letterTransform: {fileID: 3692909210878969956}
+  textMP: {fileID: 5105937402686810388}

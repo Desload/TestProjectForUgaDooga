@@ -1465,8 +1465,10 @@ GameObject:
   - component: {fileID: 1474168775}
   - component: {fileID: 1474168779}
   - component: {fileID: 1474168778}
+  - component: {fileID: 1474168781}
   - component: {fileID: 1474168780}
   - component: {fileID: 1474168776}
+  - component: {fileID: 1474168782}
   m_Layer: 5
   m_Name: PlaceForLetters
   m_TagString: Untagged
@@ -1507,9 +1509,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxCountOnSide: 20
-  prefabLetters: {fileID: 3692909210878969956, guid: 1679105ff4ee58f43aa50d12657b70b2, type: 3}
-  emptyObject: {fileID: 7079500223173080549, guid: b870972387c18a240a5d7af32eb1e1f4, type: 3}
-  points: []
+  prefabLetter: {fileID: 7149000308826806238, guid: 1679105ff4ee58f43aa50d12657b70b2, type: 3}
+  cellPrefab: {fileID: -2724343998647038217, guid: b870972387c18a240a5d7af32eb1e1f4, type: 3}
 --- !u!114 &1474168778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1562,6 +1563,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   widthText: {fileID: 668377340}
   heightText: {fileID: 1735204711}
+--- !u!114 &1474168781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474168774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd3e33bae91c30e439b0cb94889dfe2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1474168782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474168774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb634a528d43bf84681fdc84749f24de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1649880426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1645,7 +1670,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1649880429}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1474168782}
+        m_TargetAssemblyTypeName: LettersShuffle, Assembly-CSharp
+        m_MethodName: ShuffleLatters
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1649880429
 MonoBehaviour:
   m_ObjectHideFlags: 0
