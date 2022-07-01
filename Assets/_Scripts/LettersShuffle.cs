@@ -15,9 +15,14 @@ public class LettersShuffle : MonoBehaviour
 
     public void ShuffleLatters()
     {
-        if (lettersHolder.Letters.Count < 0)
+        if (lettersHolder.Letters.Count < 1)
         {
             ErrorDisplay.ShowError?.Invoke("ÍÅ×ÅÃÎ ÏÅÐÅÌÅØÈÂÀÒÜ, ÏÎÆÀËÓÉÑÒÀ ÑÃÅÍÅÐÈÐÓÉÒÅ ÏÎÑËÅÄÎÂÀÒÅËÜÍÎÑÒÜ ÁÓÊÂ");
+            return;
+        }
+        if (lettersHolder.Letters.Count == 1)
+        {
+            ErrorDisplay.ShowError?.Invoke("ÑÈÌÂÎË ÂÑÅÃÎ ËÈØÜ ÎÄÈÍ");
             return;
         }
 
