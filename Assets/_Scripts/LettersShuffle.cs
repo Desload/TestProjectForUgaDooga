@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 using UnityEngine;
 
 public class LettersShuffle : MonoBehaviour
@@ -19,12 +20,14 @@ public class LettersShuffle : MonoBehaviour
             cell.isEmpty = true;
         }
 
-        foreach(LetterController letter in lettersHolder.Letters)
+        System.Random rng = new System.Random();
+
+        List<CellInfo> tempRandomCellList = lettersHolder.Cells.OrderBy(a => rng.Next()).ToList();
+
+        for (int i = 0; i < tempRandomCellList.Count; i++)
         {
-            List < CellInfo > tempCellList = lettersHolder.Cells.Where(x => x.isEmpty).ToList();
-            int tempRandomID = Random.Range(0, tempCellList.Count);
-            letter.MoveToNewPosiotion(tempCellList[tempRandomID].CellTransform.localPosition);
-            tempCellList[tempRandomID].isEmpty = false;
+            lettersHolder.Letters[i].MoveToNewPosiotion(tempRandomCellList[i].CellTransform.localPosition);
+            tempRandomCellList[i].isEmpty = false;
         }
     }
 }

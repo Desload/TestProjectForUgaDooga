@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using System.Diagnostics;
 
 public class LettersGenerator : MonoBehaviour
 {
@@ -39,12 +40,7 @@ public class LettersGenerator : MonoBehaviour
         {
             if (widthCount == 0 || heightCount == 0)
             {
-                print("Вы ввели значение равное нулю");
-                return;
-            }
-            if (widthCount > maxCountOnSide || heightCount > maxCountOnSide)
-            {
-                print("Вы ввели значение большее максимума");
+                ErrorDisplay.ShowError?.Invoke("ВЫ ВВЕЛИ ЗНАЧЕНИЕ РАВНОЕ НУЛЮ");
                 return;
             }
 
@@ -55,10 +51,9 @@ public class LettersGenerator : MonoBehaviour
         }
         else
         {
-            print("Некоректно введены значения");
+            ErrorDisplay.ShowError?.Invoke("НЕКОРЕКТНО ВВЕДЕНЫ ЗНАЧЕНИЯ");
             return;
         }
-
 
         Vector2 center = new Vector2(lettersParent.sizeDelta.x / 2, lettersParent.sizeDelta.y / 2);
         Vector2 topLeftPoint = new Vector2(((widthCount - 1) * -endValueForLatters) / 2, ((heightCount - 1) * endValueForLatters) / 2);
@@ -70,25 +65,24 @@ public class LettersGenerator : MonoBehaviour
                 CellInfo tempCell = Instantiate(cellPrefab, transform);
                 tempCell.CellTransform.localPosition = topLeftPoint + new Vector2(endValueForLatters * w, -endValueForLatters * h);
                 lettersHolder.Cells.Add(tempCell);
+
+                LetterController tempLatter;
+                tempLatter = Instantiate(prefabLetter, transform);
+                lettersHolder.Letters.Add(tempLatter);
             }
         }
 
-        for (int count = 0; count < widthCount * heightCount; count++)
-        {
-            LetterController tempLatter;
-            tempLatter = Instantiate(prefabLetter, transform);
-            tempLatter.SetLetter(alphabet[Random.Range(0, alphabet.Length)].ToString());
-            LatterPositionSetter(tempLatter);
-            tempLatter.LetterTransform.sizeDelta = new Vector2(endValueForLatters, endValueForLatters);
-            lettersHolder.Letters.Add(tempLatter);
-        }
-    }
+        System.Random rng = new System.Random();
+        List<CellInfo> tempRandomCellList = lettersHolder.Cells.OrderBy(a => rng.Next()).ToList();
 
-    private void LatterPositionSetter(LetterController latterController)
-    {
-        List<CellInfo> tempCellList = lettersHolder.Cells.Where(x => x.isEmpty).ToList();
-        int tempRandomID = Random.Range(0, tempCellList.Count);
-        latterController.LetterTransform.localPosition = tempCellList[tempRandomID].CellTransform.localPosition;
-        tempCellList[tempRandomID].isEmpty = false;
+        for (int counter = 0; counter < widthCount * heightCount; counter++)
+        {
+            lettersHolder.Letters[counter].SetLetter(alphabet[Random.Range(0, alphabet.Length)].ToString());
+
+            lettersHolder.Letters[counter].LetterTransform.localPosition = tempRandomCellList[counter].CellTransform.localPosition;
+            tempRandomCellList[counter].isEmpty = false;
+
+            lettersHolder.Letters[counter].LetterTransform.sizeDelta = new Vector2(endValueForLatters, endValueForLatters);
+        }
     }
 }
