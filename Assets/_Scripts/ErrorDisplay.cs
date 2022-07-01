@@ -27,6 +27,7 @@ public class ErrorDisplay : MonoBehaviour
         if (doAlpha != null)
         {
             StopCoroutine(doAlpha);
+            doAlpha = null;
         }
         
         errorText.text = message;

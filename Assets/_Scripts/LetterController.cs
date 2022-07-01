@@ -20,7 +20,12 @@ public class LetterController : MonoBehaviour
 
     public void MoveToNewPosiotion(Vector2 newPosition)
     {
-        StartCoroutine(DoMove(2f, newPosition));
+        if (moveRoutin != null)
+        {
+            StopCoroutine(moveRoutin);
+            moveRoutin = null;
+        }
+        moveRoutin = StartCoroutine(DoMove(2f, newPosition));
     }
 
     private IEnumerator DoMove(float time, Vector2 targetPosition)
@@ -34,5 +39,6 @@ public class LetterController : MonoBehaviour
             letterTransform.anchoredPosition = Vector2.Lerp(startPosition, targetPosition, fraction);
             yield return null;
         }
+        moveRoutin = null;
     }
 }
