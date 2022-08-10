@@ -1,0 +1,3 @@
+[submodule "Assets/TechStack"]
+	path = Assets/TechStack
+	url = git@github.com:Desload/TechStackTest.git
